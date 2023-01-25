@@ -88,7 +88,7 @@ export default{
                 "icon": this.icon
             };
 
-            const response = await fetch("http://127.0.0.1:5000/api/v1/bookmarks/new", {
+            const response = await fetch("https://fingertipsapi.onrender.com/api/v1/bookmarks/new", {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

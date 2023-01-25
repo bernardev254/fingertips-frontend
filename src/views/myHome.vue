@@ -242,7 +242,7 @@ export default{
             }
         },
         async fetchBookmarks() {
-                const res= await fetch ("http://127.0.0.1:5000/api/v1/bookmarks/my_bookmarks",{
+                const res= await fetch ("https://fingertipsapi.onrender.com/api/v1/bookmarks/my_bookmarks",{
                     headers:{
                         "Authorization": "Bearer "+this.token
                     }
@@ -256,7 +256,7 @@ export default{
         async del(id){
                 this.show = false;
                 if (confirm('Are you sure?')){
-                    const res = await fetch("http://127.0.0.1:5000/api/v1/bookmarks/remove", {
+                    const res = await fetch("https://fingertipsapi.onrender.com/api/v1/bookmarks/remove", {
                         method: "DELETE",
                         headers:{
                             "content-Type": "application/json",
@@ -283,7 +283,7 @@ export default{
             this.show = true
             this.clicked = true
             const data ={"url":url}
-            const res = await fetch("http://127.0.0.1:5000/api/v1/auth/proxy",{
+            const res = await fetch("https://fingertipsapi.onrender.com/api/v1/auth/proxy",{
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -335,7 +335,7 @@ export default{
             if (!this.loggedIn) {
                 this.$router.push('/login');
             }
-            const response1 = await fetch("http://127.0.0.1:5000/api/v1/bookmarks/getBookmarkDetails", {
+            const response1 = await fetch("https://fingertipsapi.onrender.com/api/v1/bookmarks/getBookmarkDetails", {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -354,7 +354,7 @@ export default{
                 "icon": resp.icon
             };
 
-            const response = await fetch("http://127.0.0.1:5000/api/v1/bookmarks/new", {
+            const response = await fetch("https://fingertipsapi.onrender.com/api/v1/bookmarks/new", {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

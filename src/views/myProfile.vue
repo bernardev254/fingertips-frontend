@@ -69,7 +69,7 @@ import myHeader from '../components/myHeader.vue'
         },
         methods: {
             async fetchBookmarks() {
-                const res= await fetch ("http://127.0.0.1:5000/api/v1/bookmarks/my_bookmarks",{
+                const res= await fetch ("https://fingertipsapi.onrender.com/api/v1/bookmarks/my_bookmarks",{
                     headers:{
                         "Authorization": "Bearer "+this.token
                     }
@@ -80,7 +80,7 @@ import myHeader from '../components/myHeader.vue'
             async up(id){
                 this.popup = true
                 if (confirm('Are you sure?')){
-                    const res = await fetch("http://127.0.0.1:5000/api/v1/bookmarks/update", {
+                    const res = await fetch("https://fingertipsapi.onrender.com/api/v1/bookmarks/update", {
                         method: "PATCH",
                         headers:{
                             "content-Type": "application/json",
