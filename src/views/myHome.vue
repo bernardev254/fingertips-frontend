@@ -78,7 +78,15 @@
                         <button @click="toggleWeb()">web(preview)</button>
                         <button @click="toggle_web_show()">close</button>
                     </div>
-                    <div class="webpreview" v-if="web" v-html="html"></div>
+                    <!--div class="webpreview">
+		       <div v-if="bookmarkData" v-html="bookmarkData.html"></div>
+    <link v-for="cssUrl in bookmarkData.css" :key="cssUrl" rel="stylesheet" :href="cssUrl">
+    <script v-for="jsUrl in bookmarkData.js" :key="jsUrl" :src="jsUrl"></script>
+    <!-- Render any other assets, such as images, as needed -->
+  </div-->
+                    
+                    <div class="webpreview" v-if="web" v-html="html">
+                    </div>
                         <!--iframe height="1000px" width="400px" object-fit="contain" plugin="true" allow="fullscreen; clipboard-white" loading="eager" tabindex="-1" class="myframe" :srcdoc="html" border="none"> </iframe-->
                     
                     <div class="edit" :key="bookmark.id" v-for="bookmark in specific_bookmark">
