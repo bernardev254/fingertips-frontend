@@ -79,13 +79,13 @@
                         <button @click="toggle_web_show()">close</button>
                     </div>
                     <!--div class="webpreview">
-		       <div v-if="bookmarkData" v-html="bookmarkData.html"></div>
+                    <div v-if="bookmarkData" v-html="bookmarkData.html"></div>
     <link v-for="cssUrl in bookmarkData.css" :key="cssUrl" rel="stylesheet" :href="cssUrl">
     <script v-for="jsUrl in bookmarkData.js" :key="jsUrl" :src="jsUrl"></script>
-    <!-- Render any other assets, such as images, as needed -->
+     Render any other assets, such as images, as needed
   </div-->
                     
-                    <div class="webpreview" v-if="web" v-html="html">
+                    <div class="webpreview" v-if="web" v-html="renderedHtml">
                     </div>
                         <!--iframe height="1000px" width="400px" object-fit="contain" plugin="true" allow="fullscreen; clipboard-white" loading="eager" tabindex="-1" class="myframe" :srcdoc="html" border="none"> </iframe-->
                     
@@ -129,7 +129,7 @@
                                 <div class="update">
                                     <button class="updateme" @click="up(bookmark.id)">update</button>
                                 </div>
-                            </div-->                                   
+                            <div-->                                   
                         </div>
                             
                     <div>
@@ -171,14 +171,14 @@ export default{
             my_bookmarks: [],
             specific_bookmark: [],
             display: true,
-            html: null,
+            bookmarkAssets: null,
             
             isactive: false,
             show: false,
             over: false,
             clicked: false,
-            edit: true,
-            web: false,
+            edit: false,
+            web: true,
         }
 
     },
@@ -216,6 +216,16 @@ export default{
         bookmarkSize(){
             return this.my_bookmarks.length
         },
+        renderedHtml() {
+            // Response from the API call (replace with your actual API response)
+            const apiResponse = this.bookmarkAssets
+            // Add the CSS links to the HTML content
+            let htmlContent = apiResponse.html;
+            apiResponse.css.forEach(css => {
+                htmlContent = htmlContent.replace('</head>', `<link href="${css}" rel="stylesheet"/></head>`);
+                });
+            return htmlContent;
+            },
     },
     methods: {
         logout(){
@@ -285,13 +295,13 @@ export default{
             },
         //preview html
         async preview($event, url, id){
-            this.web = false
-            this.edit = true
+            this.web = true
+            this.edit = false
             this.specific_bookmark = this.specificBookmark(id)
             this.show = true
             this.clicked = true
             const data ={"url":url}
-            const res = await fetch("https://fingertipsapi.onrender.com/api/v1/auth/proxy",{
+            const res = await fetch("https://fingertipsapi.onrender.com/api/v1/auth/render_page",{
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -302,7 +312,7 @@ export default{
             //let reader = await res.page.body.getReader()
             //let html = await reader.read()
             //this.page = new TextDecoder().decode(html.value)
-            this.html = await res.text()
+            this.bookmarkAssets = await res.json()
             //await this.writehtml(this.page)
             //let bl = await res.blob()
             //const page = await bl.text()
